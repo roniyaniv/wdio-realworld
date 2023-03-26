@@ -1,3 +1,16 @@
+const Chance = require('chance');
+
+if (!process.env.SEED) {
+  // store as a string since that's how the SEED environment variable is passed in
+  process.env.SEED = Math.random().toString();
+}
+
+console.log(
+  `ChanceJS Seed: ${process.env.SEED} - Pass in using 'SEED=${process.env.SEED}'`
+);
+const chance = new Chance(process.env.SEED);
+
+
 exports.config = {
     //
     // ====================
@@ -197,8 +210,13 @@ exports.config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+    before: function (capabilities, specs) {
+        // store Chance globally so all tests can use it with the specific seed
+        // In order to avoid chance re-using the same seed for each test file,
+        // we create a Chance instance using the base seed,
+        // plus the path of the file (specs[0])
+        global.chance = new Chance(process.env.SEED + specs[0]);
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name

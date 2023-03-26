@@ -11,13 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wdio/cli": "^8.2.1"
+    "@wdio/cli": "^8.2.1",
+    "chance": "^1.1.11"
   },
   "devDependencies": {
     "@wdio/local-runner": "^8.2.1",
     "@wdio/mocha-framework": "^8.2.1",
     "@wdio/spec-reporter": "^8.1.2",
-    "chromedriver": "^109.0.0",
+    "chromedriver": "^111.0.0",
     "wdio-chromedriver-service": "^8.0.1"
   }
 }
