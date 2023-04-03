@@ -10,7 +10,13 @@ class Editor extends Generic {
   get $description () { return $('[data-qa-id="editor-description"]'); }
   get $body () { return $('[data-qa-id="editor-body"] textarea'); }
   get $tags () { return $('[data-qa-id="editor-tags"]'); }
+  get $$tags () {
+    return $$('.tag-list .tag-pill');
+  }
   get $publish () { return $('[data-qa-id="editor-publish"]'); }
+  get $edit () { return $('[data-qa-id="article-edit"]'); }
+
+  get tags () { return this.$$tags.map($tag => $tag.getText()); }
 
   async submitArticle({ title, description, body, tags }){
     await this.$title.setValue(title);

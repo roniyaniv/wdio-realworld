@@ -57,6 +57,34 @@ describe('Post Editor', function () {
 
     });
   
+  it('should let you edit a post', async function () {
+
+    const articleDetails = {
+      title: global.chance.sentence({ words: 3 }),
+      description: global.chance.sentence({ words: 7 }),
+      body: global.chance.paragraph({ sentences: 4 }),
+      tags: [global.chance.word(), global.chance.word()]
+    };
+  
+    editor.submitArticle(articleDetails);
+
+    await editor.$edit.click();
+
+    // console.log('editor.$title.getValue(): ' + await editor.$title.getValue());
+
+    expect(await editor.$title.getValue()).toEqual(articleDetails.title);
+    expect(await editor.$body.getValue()).toEqual(articleDetails.body);
+    
+    expect(await editor.tags).toEqual(articleDetails.tags);
+
+    await editor.$publish.click();
+
+    // to avoid making a lot of articles, let's just click the delete button to
+    // clean it up. We'll talk about a better way to clean it later on.
+    await article.$delete.click();
+  
+    });
+    
   describe('"Unsaved Changes" alerts', function () {
     
     beforeEach(async function () {
@@ -88,5 +116,6 @@ describe('Post Editor', function () {
     })
   
   });
+
 });
 
