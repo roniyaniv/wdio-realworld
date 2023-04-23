@@ -6,9 +6,9 @@ class Home extends Generic {
   }
 
   get $$feedTabs () { return $$('[data-qa-id="feed-tabs"] [data-qa-type="feed-tab"]') }
-  // original code (got TypeError: $tab.getText(...).trim is not a function): 
-  // get feedTabsText () { return this.$$feedTabs.map($tab => $tab.getText().trim()); }
   get feedTabsText () { return this.$$feedTabs.map($tab => $tab.getText()); }
+  get activeFeedTabText() { return $$('[data-qa-id="feed-tabs"] [data-qa-type="feed-tab"] .active').map($tab => $tab.getText());  }
+
 }
 
 module.exports = Home;

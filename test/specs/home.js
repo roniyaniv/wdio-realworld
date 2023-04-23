@@ -28,6 +28,7 @@ describe('Homepage', function () {
 
     describe('Logged in', function () {
         before(async function () {
+            // await console.log('before')
             await auth.load();
             await auth.login(user1);
 
@@ -36,10 +37,19 @@ describe('Homepage', function () {
 
         it('should show both feed tabs', async function () {
             await expect(await home.feedTabsText).toEqual(['Your Feed', 'Global Feed']);
+            // await browser.debug();
         });
 
-        after(function () {
-            auth.clearSession();
+        it('should default to showing the global feed', async function () {
+            // get all tabs with an 'active' class, check only one returns with correct text
+            // await console.log('check');
+            await expect(await home.activeFeedTabText).toEqual(['Global Feed']);
+        });
+
+
+        after(async function () {
+            // await console.log('after')
+            await auth.clearSession();
         });
     });
 
